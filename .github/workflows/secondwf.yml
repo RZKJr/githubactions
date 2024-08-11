@@ -3,11 +3,40 @@ name: "First workflow"
 on: push 
 
 jobs: 
-  first job: 
-      runs on: ubuntu-latest
+  build: 
+      runs-on: ubuntu-latest
       steps: 
       - name: Welcome Message 
         run: echo "Hi Sohail, Welcome to Github actions!"
-
-      - name: List files 
-        run: ls -al 
+      - name: Download cowsay 
+        run: sudo apt install cowsay
+      - name: Push message for Sohail 
+        run: cowsay -f dragon "Hi Sohail, How are you doing today?" >> dragonsohail.txt
+      - name: Uploading the output file
+        uses: actions/upload-artifact@v3
+        with:
+          name: sohail-artifact
+          path: ./dragronsohail.txt
+  
+  test: 
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps: 
+    - name: Download the outpt file
+      uses: actions/download-artifact@v3
+      with:
+        name: sohail-artifact
+    - name: grep the file 
+      run: grep -i "Sohail" dragonsohail.txt 
+            
+  deploy: 
+    needs: [test]
+    runs-on: ubuntu-latest
+    steps: 
+    - name: Download the outpt file
+      uses: actions/download-artifact@v3
+      with:
+        name: sohail-artifact
+    - name: grep the file 
+      run: grep -i "Sohail" dragonsohail.txt 
+                
