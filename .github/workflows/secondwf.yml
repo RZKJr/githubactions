@@ -16,7 +16,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: sohail-artifact
-          path: dragronsohail.txt
+          path: dragonsohail.txt
   
   test: 
     needs: [build]
