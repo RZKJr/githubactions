@@ -37,6 +37,6 @@ jobs:
       uses: actions/download-artifact@v3
       with:
         name: sohail-artifact
-    - name: grep the file 
-      run: grep -i "Sohail" dragonsohail.txt 
+    - name: cat the file 
+      run: cat dragonsohail.txt
                 
